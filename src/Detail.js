@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
 import styled from 'styled-components';
 import './Detail.scss';
 import {재고context} from './App.js';
@@ -30,6 +31,9 @@ class Datail2 extend React.Component {
 function Detail(props) {
   let [alert, alert변경] = useState(true);
   // let [inputData, inputData변경] = useState('');
+
+  let [누른탭, 누른탭변경] = useState(0);
+
   let 재고 = useContext(재고context);
 
   useEffect(()=>{ 
@@ -72,6 +76,20 @@ function Detail(props) {
             <button className="btn btn-danger" onClick={()=>{ history.goBack(); }}>뒤로가기</button> 
           </div>
         </div>
+
+        <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+          <Nav.Item>
+            <Nav.Link eventKey="link-0">Active</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="link-1">Option 2</Nav.Link>
+          </Nav.Item>
+        </Nav>
+
+        <div></div>
+        <div></div>
+        <div></div>
+
       </div> 
     )
 }
