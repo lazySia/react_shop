@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import './Detail.scss';
 import {재고context} from './App.js';
 import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
+
 
 let 박스 = styled.div`
   padding : 20px;
@@ -74,7 +76,11 @@ function Detail(props) {
             <p>{찾은상품.content}</p>
             <p>{찾은상품.price}</p>
             <Info 재고={props.재고}></Info>
-            <button className="btn btn-danger" onClick={()=>{props.재고변경([9,10,11])}}>주문하기</button> 
+            <button className="btn btn-danger" onClick={()=>{
+              props.재고변경([9,10,11]);
+              props.dispatch({type : '항목추가', payload : {id : 2, name : '새로운상품', quan : 1} });
+              history.push('/cart'); 
+              }}>주문하기</button> 
             <button className="btn btn-danger" onClick={()=>{ history.goBack(); }}>뒤로가기</button> 
           </div>
         </div>
@@ -91,6 +97,8 @@ function Detail(props) {
         <CSSTransition in={스위치} classNames="wow" timeout={500}>
          <TabContent 누른탭={누른탭} 스위치변경={스위치변경}/>
         </CSSTransition>
+
+      
 
       </div> 
     )
@@ -119,4 +127,13 @@ function Info(props) {
   )
 }
 
-export default Detail;
+function state를props화(state){
+  console.log(state);
+  return {
+    state : state.reducer,
+    alert열렸니 : state.reducer2
+  }
+}
+
+export default connect(state를props화)(Detail);
+// export default Detail;
