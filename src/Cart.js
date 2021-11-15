@@ -23,11 +23,11 @@ function Cart(props) {
                         state.reducer.map((a,i)=>{
                             return (
                                 <tr key={i}>
-                                    <td>{ a.id }</td>
+                                    <td>{ i }</td>
                                     <td>{ a.name }</td>
                                     <td>{ a.quan }</td>
-                                    <td><button onClick={()=>{ dispatch({ type : '수량증가' }) }}>+</button></td>
-                                    <td><button onClick={()=>{ dispatch({ type : '수량감소' }) }}>-</button></td>
+                                    <td><button onClick={()=>{ dispatch({ type : '수량증가', 데이터 : i}) }}>+</button>
+                                    <button onClick={()=>{ dispatch({ type : '수량감소', 데이터 : i }) }}>-</button></td>
                                 </tr>
                             )
                         })

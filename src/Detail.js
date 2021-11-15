@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import './Detail.scss';
 import {재고context} from './App.js';
 import { CSSTransition } from 'react-transition-group';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 
 
 let 박스 = styled.div`
@@ -32,6 +32,10 @@ class Datail2 extend React.Component {
 
 
 function Detail(props) {
+
+  let state = useSelector((state) => state )
+  let dispatch = useDispatch()
+  
   let [alert, alert변경] = useState(true);
   // let [inputData, inputData변경] = useState('');
 
@@ -78,7 +82,7 @@ function Detail(props) {
             <Info 재고={props.재고}></Info>
             <button className="btn btn-danger" onClick={()=>{
               props.재고변경([9,10,11]);
-              props.dispatch({type : '항목추가', payload : {id : 2, name : '새로운상품', quan : 1} });
+              dispatch({type : '항목추가', 데이터 : {id : 찾은상품.id, name : 찾은상품.title, quan : 1} });
               history.push('/cart'); 
               }}>주문하기</button> 
             <button className="btn btn-danger" onClick={()=>{ history.goBack(); }}>뒤로가기</button> 
@@ -127,13 +131,13 @@ function Info(props) {
   )
 }
 
-function state를props화(state){
-  console.log(state);
-  return {
-    state : state.reducer,
-    alert열렸니 : state.reducer2
-  }
-}
+// function state를props화(state){
+//   console.log(state);
+//   return {
+//     state : state.reducer,
+//     alert열렸니 : state.reducer2
+//   }
+// }
 
-export default connect(state를props화)(Detail);
-// export default Detail;
+// export default connect(state를props화)(Detail);
+export default Detail;
