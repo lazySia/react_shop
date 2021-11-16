@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, {useEffect, useState} from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
@@ -40,16 +41,53 @@ function Detail(props) {
 
   let [누른탭, 누른탭변경] = useState(0);
   let [스위치, 스위치변경] = useState(false);
+  let [value, value변경] = useState([]);
+
+  let { id } = useParams(); // 사용자가 입력한 URL 파라미터들
+  let history = useHistory();
+  let 찾은상품 = props.shoes.find(x => x.id == id);
 
   // let 재고 = useContext(재고context);
+
   useEffect(()=>{ 
     let 타이머 = setTimeout(()=>{ alert변경(false)}, 2000);
     return ()=>{clearTimeout(타이머)}
   }, [])
 
-    let { id } = useParams(); // 사용자가 입력한 URL 파라미터들
-    let history = useHistory();
-    let 찾은상품 = props.shoes.find(x => x.id == id);
+  useEffect( ()=>{    
+    var arr = localStorage.getItem('watched');
+    if (arr === null) {
+      localStorage.setItem('watched', JSON.stringify([id]));
+    } else {
+      arr = JSON.parse(arr);
+      arr.push(id);
+      arr = new Set(arr);
+      arr = [...arr];
+      localStorage.setItem('watched', JSON.stringify(arr));
+    }
+
+  }, [] );
+
+
+  // useEffect( ()=>{
+  //   let arr = [];
+  //   // arr = localStorage.getItem('watched');
+  //   // console.log(arr);
+  //   arr.push(id);
+  //   // arr = new Set(arr);
+  //   // arr = [...arr];
+  //   value변경([...arr,...value]);
+  //   // console.log(JSON.stringify(arr));
+    
+  //   localStorage.setItem('watched', JSON.stringify(arr));
+  //   localStorage.setItem('watched', JSON.stringify({name:'kim'}) );
+    
+    
+  // }, [] );
+  
+  // console.log(value);
+
+
 
     return (
       <div className="container">
