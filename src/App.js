@@ -1,9 +1,10 @@
 /* eslint-disable */
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, lazy, Suspense} from 'react';
 import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js';
-import Detail from './Detail.js';
+// import Detail from './Detail.js';
+let Detail = lazy( ()=>{ return import('./Detail.js') } ); // 컴포넌트 필요한 순간에 import해줌
 import axios from 'axios';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import Cart from './Cart.js';
@@ -81,7 +82,9 @@ function App() {
 
         <Route path="/detail/:id">
           <재고context.Provider value={재고}>
-          <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
+          <Suspense fallback={<div>로딩중이에요</div>}>
+            <Detail shoes={shoes} 재고={재고} 재고변경={재고변경}/>
+          </Suspense>
           </재고context.Provider>
         </Route>
 
@@ -116,7 +119,7 @@ function Card(props){
       <img src={ "https://codingapple1.github.io/shop/shoes" + (props.i+1) + ".jpg" } width="100%"/>
       <h4>{ props.shoes.title }</h4>
       <p>{ props.shoes.content } & { props.shoes.price }</p>
-      <Test></Test>
+      {/* <Test></Test> */}
     </div>
   )
 }

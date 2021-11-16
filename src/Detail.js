@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import styled from 'styled-components';
 import './Detail.scss';
-import {재고context} from './App.js';
+// import {재고context} from './App.js';
 import { CSSTransition } from 'react-transition-group';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 
 let 박스 = styled.div`
@@ -33,8 +33,7 @@ class Datail2 extend React.Component {
 
 function Detail(props) {
 
-  let state = useSelector((state) => state )
-  let dispatch = useDispatch()
+
   
   let [alert, alert변경] = useState(true);
   // let [inputData, inputData변경] = useState('');
@@ -42,8 +41,7 @@ function Detail(props) {
   let [누른탭, 누른탭변경] = useState(0);
   let [스위치, 스위치변경] = useState(false);
 
-  let 재고 = useContext(재고context);
-
+  // let 재고 = useContext(재고context);
   useEffect(()=>{ 
     let 타이머 = setTimeout(()=>{ alert변경(false)}, 2000);
     return ()=>{clearTimeout(타이머)}
@@ -82,7 +80,7 @@ function Detail(props) {
             <Info 재고={props.재고}></Info>
             <button className="btn btn-danger" onClick={()=>{
               props.재고변경([9,10,11]);
-              dispatch({type : '항목추가', 데이터 : {id : 찾은상품.id, name : 찾은상품.title, quan : 1} });
+              props.dispatch({type : '항목추가', 데이터 : {id : 찾은상품.id, name : 찾은상품.title, quan : 1} });
               history.push('/cart'); 
               }}>주문하기</button> 
             <button className="btn btn-danger" onClick={()=>{ history.goBack(); }}>뒤로가기</button> 
@@ -131,13 +129,13 @@ function Info(props) {
   )
 }
 
-// function state를props화(state){
-//   console.log(state);
-//   return {
-//     state : state.reducer,
-//     alert열렸니 : state.reducer2
-//   }
-// }
+function state를props화(state){
+  console.log(state);
+  return {
+    state : state.reducer,
+    alert열렸니 : state.reducer2
+  }
+}
 
-// export default connect(state를props화)(Detail);
-export default Detail;
+export default connect(state를props화)(Detail);
+// export default Detail;
